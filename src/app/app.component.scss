@@ -1,0 +1,13 @@
+.ux-page-title{
+    background: gray;
+    text-align: center;
+    padding: 1rem;
+}
+.ux-page-wrapper {
+    padding: 2rem;
+
+    .ux-greeting {
+        width: 50%;
+        border-bottom: 1px solid black;
+    }
+}
