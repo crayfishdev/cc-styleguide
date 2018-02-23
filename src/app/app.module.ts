@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-
+import { LibraryModule } from '../../node_modules/cc-component-library/src/lib/library.module';
 import { AppComponent } from './app.component';
 
 
@@ -10,7 +9,8 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    LibraryModule
   ],
   providers: [],
   bootstrap: [AppComponent]
