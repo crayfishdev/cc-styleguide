@@ -1,0 +1,13 @@
+
+@import 'vendor';
+@import 'variables';
+@import 'mixins';
+
+html {
+    font-size: 12px !important;
+    // Tablets 
+    @media screen and (min-width: $screen-sm){ font-size: 14px !important; }
+
+    // Desktop
+    @media screen and (min-width: $screen-md){ font-size: 18px !important; }
+}

@@ -1,0 +1,19 @@
+@import "~styles/variables";
+
+.brand{
+    font-size: map-get($font-heading-sizes, h3);
+    &__icon {
+        position: relative;
+        bottom: -5px;
+        padding-right: 8px;
+    }
+
+    &__name {
+        display: inline;
+    }
+}
+header { 
+    font-size: 1rem; 
+    border-bottom: 1px solid $gray-300;
+}
+

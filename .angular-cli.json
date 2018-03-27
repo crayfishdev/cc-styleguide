@@ -5,7 +5,7 @@
   },
   "apps": [
     {
-      "root": "src",
+      "root": "angular",
       "outDir": "dist",
       "assets": [
         "assets",
@@ -19,9 +19,9 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles/main.scss"
+        "styles/main.scss",
+        "../node_modules/cc-component-library/src/styles/main.scss"  
       ],
-      "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
