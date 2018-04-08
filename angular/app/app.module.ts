@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { LibraryModule } from '../../node_modules/cc-component-library/src/lib/library.module';
 
 import { AppComponent } from './app.component';
+import { SidebarModule } from './sidebar/sidebar.module';
 
 
 @NgModule({
@@ -12,10 +13,9 @@ import { AppComponent } from './app.component';
     BrowserModule,
     LibraryModule,
     HeaderModule,
+    SidebarModule,
   ],
-  declarations: [
-    AppComponent
-  ],
+  declarations: [ AppComponent ],
   providers: [],
   bootstrap: [AppComponent]
 })
