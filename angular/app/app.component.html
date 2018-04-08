@@ -1,15 +1,13 @@
-
-<app-header></app-header>
+<app-header>
+</app-header>
 
 <div class="main">
-    <app-primary-sidebar></app-primary-sidebar>
-    <div class="ux-page-wrapper container">
-        <h2 class="ux-greeting">Please place all components below this heading, thanks!</h2>
-        <button ccButton [definition]="defaultButtonObj">
-          <span>Default</span>
-        </button>
-      
-      </div>
+  <app-primary-sidebar></app-primary-sidebar>
+  <div class="ux-page-wrapper container">
+    <h2 class="ux-greeting">Please place all components below this heading, thanks!</h2>
+    <button ccButton [definition]="defaultButtonObj">
+      <span>Default</span>
+    </button>
+    <router-outlet></router-outlet>
+  </div>
 </div>
-
-
