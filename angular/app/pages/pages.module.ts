@@ -13,6 +13,10 @@ import { UxdStylesModule } from './uxd-styles/uxd-styles.module';
 import { UxdStylesListComponent } from './uxd-styles/uxd-styles-list/uxd-styles-list.component';
 import { UxdStyleDetailComponent } from './uxd-styles/uxd-style-detail/uxd-style-detail.component';
 import { UxdStyleCategoriesComponent } from './uxd-styles/uxd-style-categories/uxd-style-categories.component';
+import { SharedModule } from '../shared/shared.module';
+import { UxdComponentOverviewComponent } from './uxd-components/uxd-component-detail/uxd-component-overview.component';
+import { UxdComponentImplementationComponent } from './uxd-components/uxd-component-detail/uxd-component-implementation.component';
+import { UxdComponentExamplesComponent } from './uxd-components/uxd-component-detail/uxd-component-examples.component';
 
 export const pageRoutes: Routes = [
   {
@@ -25,7 +29,12 @@ export const pageRoutes: Routes = [
   },
   {
     path: 'components/:categoryName/:componentName',
-    component: UxdComponentDetailComponent
+    component: UxdComponentDetailComponent,
+    children: [
+      { path: 'overview', component: UxdComponentOverviewComponent },
+      { path: 'implementation', component: UxdComponentImplementationComponent },
+      { path: 'examples', component: UxdComponentExamplesComponent },
+    ]
   },
   {
     path: 'styles',
