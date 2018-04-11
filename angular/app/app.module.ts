@@ -1,3 +1,5 @@
+import { UxdStyleCategoriesComponent } from './pages/uxd-styles/uxd-style-categories/uxd-style-categories.component';
+import { UxdComponentsModule } from './pages/uxd-components/uxd-components.module';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -6,11 +8,11 @@ import { LibraryModule } from '../../node_modules/cc-component-library/src/lib/l
 
 import { AppComponent } from './app.component';
 import { NavigationModule } from './navigation/navigation.module';
-import { PagesModule } from './pages/pages.module';
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '', pathMatch: 'full'},
+  { path: 'components', loadChildren: () => UxdComponentsModule},
 ];
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -20,7 +22,6 @@ const appRoutes: Routes = [
 ,    ),
     LibraryModule,
     NavigationModule,
-    PagesModule,
   ],
   declarations: [ AppComponent ],
   providers: [],

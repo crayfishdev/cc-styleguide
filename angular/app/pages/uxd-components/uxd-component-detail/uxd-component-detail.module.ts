@@ -9,14 +9,21 @@ import { UxdComponentExamplesComponent } from './uxd-component-examples.componen
 import { SharedModule } from '../../../shared/shared.module';
 
 const detailRoutes: Routes = [
-
+  { path: '',
+    component: UxdComponentDetailComponent,
+    children: [
+      { path: 'overview', component: UxdComponentOverviewComponent },
+      { path: 'implementation', component: UxdComponentImplementationComponent },
+      { path: 'examples', component: UxdComponentExamplesComponent },
+    ]
+  }
 ];
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule
+    RouterModule.forChild(detailRoutes)
   ],
   declarations: [
     UxdComponentDetailComponent,
@@ -29,7 +36,7 @@ const detailRoutes: Routes = [
     UxdComponentOverviewComponent,
     UxdComponentImplementationComponent,
     UxdComponentExamplesComponent,
-    // RouterModule,
+    RouterModule,
   ]
 })
 export class UxdComponentDetailModule { }
