@@ -4,6 +4,28 @@
 <div class="ux-page-wrapper container">
   <h2 class="ux-greeting">Please place all components below this heading, thanks!</h2>
   <button type="button" class="btn btn-primary btn-lg">Large button</button>
-
+    <h3>Comonent coming from cc-comoponent-library</h3>
+    <button ccButton [definition]="defaultButtonObj">
+      <span>Default</span>
+    </button>
+    <button ccButton [definition]="successButtonObj">
+      <span>Success</span>
+    </button>
+    <button ccButton [definition]="primaryButtonObj">
+      <span>Primary</span>
+    </button>
+    <button ccButton [definition]="infoButtonObj">
+      <span>Info</span>
+    </button>
+    <button ccButton [definition]="warningButtonObj">
+      <span>Warning</span>
+    </button>
+    <button ccButton [definition]="dangerButtonObj">
+      <span>Danger</span>
+    </button>
+    <button ccButton [definition]="linkButtonObj">
+      <span>Link</span>
+    </button>
+    <br>
 </div>
 
