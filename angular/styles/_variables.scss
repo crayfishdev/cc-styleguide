@@ -1,0 +1,77 @@
+
+
+/** Screen sizes */
+$screen-sm: 768px;
+$screen-md: 992px;
+$screen-lg: 1200px;
+
+/** Typography */
+$font-size-base: 18px !default;
+$font-family-OpenSans: 'Open Sans', sans-serif;
+
+$font-size-body: (1 * $font-size-base) !default;
+$font-size-small: (0.75 * $font-size-body) !default;
+$font-size-tiny: (0.563 * $font-size-body) !default;
+
+$h1-font-size: (3.157 * $font-size-body) !default;
+$h2-font-size: (2.369 * $font-size-body) !default;
+$h3-font-size: (1.77 * $font-size-body) !default;
+$h4-font-size: (1.33 * $font-size-body) !default;
+$h5-font-size: (1 * $font-size-body) !default;
+$h6-font-size: (0.75 * $font-size-body) !default;
+
+$font-heading-list: (h1,h2,h3,h4,h5,h6);
+$font-heading-sizes: () !default;
+$font-heading-sizes: map-merge((
+    h1: $h1-font-size,
+    h2: $h2-font-size,
+    h3: $h3-font-size,
+    h4: $h4-font-size,
+    h5: $h5-font-size,
+    h6: $h6-font-size,
+), $font-heading-sizes);
+
+/** Color */
+$white: #FFF !default;
+$gray-100: #F8f9FA !default;
+$gray-200: #E9ECEF !default;
+$gray-300: #DEE2E6;
+$gray-400: #CED4DA;
+$gray-500: #ADB5BD;
+$gray-600: #6C757D;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+$black: #000 !default;
+
+$grays: () !default;
+$grays: map-merge((
+    "100": $gray-100,
+    "200": $gray-200,
+    "300": $gray-300,
+    "400": $gray-400,
+    "500": $gray-500,
+    "600": $gray-600,
+    "700": $gray-700,
+    "800": $gray-800,
+    "900": $gray-900,
+), $grays);
+
+$blue: #007bff !default;
+$green: #28A745 !default;
+$red: #DC3545 !default;
+$teal: #17a2b8 !default;
+$indigo: #6610F2 !default;
+
+$colors: () !default;
+$colors: map-merge((
+    "blue": $blue,
+    "green": $green,
+    "red": $red,
+    "teal": $teal,
+    "indigo": $indigo
+), $colors);
+
+$primary: $blue;
+$secondary: $gray-600;
+$success: $green;

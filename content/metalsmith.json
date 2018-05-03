@@ -1,0 +1,10 @@
+{
+    "source": "src",
+    "destination": "build",
+    "plugins": {
+      "metalsmith-layouts": {
+        "pattern": "**/*.html",
+        "directory": "templates"
+      }
+    }
+  }
