@@ -8,7 +8,8 @@
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "compodoc": "./node_modules/.bin/compodoc -p node_modules/cc-component-library/src/tsconfig.app.json -d src/app/documentation -o --disableCoverage --hideGenerator -s"
   },
   "private": true,
   "dependencies": {
