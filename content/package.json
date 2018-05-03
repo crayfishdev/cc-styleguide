@@ -1,0 +1,31 @@
+{
+  "name": "markdown-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./tasks/metalsmith/build.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "clipboard": "^2.0.0",
+    "lodash": "^4.17.5",
+    "metalsmith-collections": "^0.9.0",
+    "npm": "^6.0.0",
+    "object.entries": "^1.0.4",
+    "prismjs": "^1.14.0"
+  },
+  "devDependencies": {
+    "jscs": "^3.0.7",
+    "jstransformer-handlebars": "^1.1.0",
+    "marked": "^0.3.19",
+    "metalsmith": "^2.3.0",
+    "metalsmith-layouts": "^2.1.0",
+    "metalsmith-lunr": "^0.2.1",
+    "metalsmith-markdown": "^0.2.2",
+    "metalsmith-permalinks": "^0.5.0",
+    "minimatch": "^3.0.4"
+  }
+}
