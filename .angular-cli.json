@@ -54,6 +54,9 @@
     }
   },
   "defaults": {
-    "styleExt": "scss"
+    "styleExt": "scss",
+    "serve": {
+      "proxyConfig": "proxy.config.json"
+    }
   }
 }

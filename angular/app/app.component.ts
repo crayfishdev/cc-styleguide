@@ -1,13 +1,13 @@
 import { Button, ButtonType } from 'cc-component-library/src/lib/button/button';
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'app';
 
   public defaultButtonObj: Button = {
@@ -16,4 +16,8 @@ export class AppComponent {
     ariaLabel: 'This is a default button. Click It!',
     isOutlined: true,
   };
+  constructor() {}
+
+  ngOnInit() {
+  }
 }

@@ -1,0 +1,32 @@
+
+
+$boxShadowColor: #000;
+$colorOpacityList: 0.12 0.16 0.19 0.25 0.30;
+$topBoxShadowSettings: 1.5 3 10 14 19;
+@function top-shadow($depth) {
+    $list: $topBoxShadowSettings;
+    $offset: nth(1 3 10 14 19, $depth) * 1px;
+    $blur: nth(1 3 10 14 19, $depth) * 3px;
+    $color: rgba($boxShadowColor, nth($colorOpacityList , $depth));
+
+    @return 0 $offset $blur $color;
+}
+
+$bottomBoxShadowSettings: 1.5 3 6 10 15;
+@function bottom-shadow($depth) {
+    $list: $bottomBoxShadowSettings;
+    $offset: nth(1 3 6 10 15, $depth) * 1px;
+    $blur: nth(2 6 6 10 12, $depth) * 1px;
+    $color: rgba($boxShadowColor, nth($colorOpacityList , $depth));
+
+    @return 0 $offset $blur $color;
+}
+
+@mixin boxShadowHelper($depth) {
+    @if $depth < 1 {
+        box-shadow: none;
+    } @else{
+        box-shadow: bottom-shadow($depth), top-shadow($depth);
+    }
+
+}

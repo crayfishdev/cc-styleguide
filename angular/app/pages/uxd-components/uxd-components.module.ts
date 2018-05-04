@@ -9,9 +9,11 @@ import { UxdComponentOverviewComponent } from './uxd-component-detail/uxd-compon
 import { UxdComponentDetailModule } from './uxd-component-detail/uxd-component-detail.module';
 
 export const componentRoutes: Routes = [
-  { path: '', component: UxdComponentCategoriesComponent },
+  { path: 'all',
+    component: UxdComponentCategoriesComponent },
+  { path: '', redirectTo: 'all', pathMatch: 'full'},
   { path: ':categoryName', component: UxdComponentListComponent },
-  { path: ':categoryName/:componentName', loadChildren: () => UxdComponentDetailModule }
+  { path: ':categoryName/:componentName', loadChildren: () => UxdComponentDetailModule },
 ];
 
 @NgModule({

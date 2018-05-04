@@ -9,14 +9,14 @@ import { UxdComponentExamplesComponent } from './uxd-component-examples.componen
 import { SharedModule } from '../../../shared/shared.module';
 
 const detailRoutes: Routes = [
-  { path: '',
+  { path: ':categoryName/:componentName',
     component: UxdComponentDetailComponent,
     children: [
       { path: 'overview', component: UxdComponentOverviewComponent },
       { path: 'implementation', component: UxdComponentImplementationComponent },
       { path: 'examples', component: UxdComponentExamplesComponent },
     ]
-  }
+  },
 ];
 
 @NgModule({
