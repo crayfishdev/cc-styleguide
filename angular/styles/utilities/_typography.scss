@@ -1,0 +1,13 @@
+.font-tiny {
+    font-size: $h6-font-size;
+}
+
+@each $color, $value in $grays {
+    .text-gray-#{$color} {
+      color: $value !important;
+    }
+}
+
+@mixin text-color($value, $map: $grays){
+    color: map-get($map, $value);
+}

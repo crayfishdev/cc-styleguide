@@ -1,0 +1,11 @@
+
+@mixin button-base() {
+    display: block;
+    width: 100%;
+    border: none;
+    @include margin(0 0);
+}
+
+@mixin button-outline($color, $color-hover) {
+
+}

@@ -1,6 +1,7 @@
 
 @import 'vendor';
 @import 'variables';
+@import 'utilities';
 @import 'mixins';
 @import "partials";
 
@@ -11,4 +12,10 @@ html {
 
     // Desktop
     @media screen and (min-width: $screen-md){ font-size: 18px !important; }
+}
+
+@media (min-width: 1200px){
+    .container {
+        width: 1350px;
+    }
 }

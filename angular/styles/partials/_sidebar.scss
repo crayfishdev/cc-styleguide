@@ -1,4 +1,48 @@
 .sidebar {
+    display: block;
     position: sticky;
-    max-width: 25%;
+    border-right: 1px solid rgba($black, 0.1);
+}
+
+.sidebar__nav {
+    width: 240px;
+    max-height: 75vh;
+
+    button.nav-group__button {
+        display: block;
+        @include button-base();
+        @include padding(10px 15px 5px 15px);
+        position: relative;
+        text-align: left;
+        font-size: $h5-font-size;
+
+        .glyphicon{ 
+            width: $h5-font-size;
+            height: $h5-font-size;
+            top: 16px;
+            right: 10px;
+            position: absolute;
+        }
+    }
+
+    ul.nav-group__list { list-style-type: none; 
+    }
+    ul.nav-group__list,
+    ol.nav-group__list {
+        @include margin(null 0);
+        @include padding(null 0);
+    }
+
+    li.nav-group__item{
+        @include margin(0 null);
+        @include padding(5px 15px 5px 20px);
+        @include text-color('600');
+
+        a { 
+            color: inherit; 
+            &:hover {
+                color: map-get($colors, 'indigo' );
+            }
+        }
+    }
 }

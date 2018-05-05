@@ -2,6 +2,7 @@
     display: block;
     padding: 30px;
     @include boxShadowHelper(2);
+    background-color: $white;
     border: 1px solid rgba(black, 0.1);
     border-radius: 2px;
     cursor: pointer;
