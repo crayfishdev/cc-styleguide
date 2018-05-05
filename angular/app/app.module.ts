@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { NavigationModule } from './navigation/navigation.module';
 import { UxdStylesModule } from './pages/uxd-styles/uxd-styles.module';
 import { UxdComponentsModule } from './pages/uxd-components/uxd-components.module';
+import { SharedModule } from './shared/shared.module';
 
 const appRoutes: Routes = [
   { path: 'components', loadChildren: () => UxdComponentsModule},
@@ -23,6 +24,7 @@ const appRoutes: Routes = [
 ,    ),
     LibraryModule,
     NavigationModule,
+    SharedModule,
   ],
   declarations: [ AppComponent ],
   providers: [],

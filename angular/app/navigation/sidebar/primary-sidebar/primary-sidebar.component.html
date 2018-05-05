@@ -1,9 +1,12 @@
 
-  <nav class="sidebar__nav">
-    <ul class="nav-list">
-      <li><a href="">Accordion</a></li>
-      <li><a href="">Alerts</a></li>
-      <li><a href="">Buttons</a></li>
-      <li><a href="">Carousel</a></li>
-    </ul>
-  </nav>
+  <div class="sidebar__nav nav">
+    <nav class="nav__nav-group" *ngFor="let category of categories">
+      <button class="nav-group__button">
+        {{ category.label }}
+        <span class="glyphicon glyphicon-chevron-down font-tiny"></span>
+      </button>
+      <ul class="nav-group__list">
+          <li class="nav-group__item" *ngFor="let subcategory of category.subcollections"><a href="">{{subcategory.label}}</a></li>
+        </ul>
+    </nav>
+  </div>

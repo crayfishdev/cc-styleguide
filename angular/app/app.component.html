@@ -1,13 +1,25 @@
 <app-header>
 </app-header>
-
 <div class="main">
-  <app-primary-sidebar></app-primary-sidebar>
-  <div class="ux-page-wrapper container">
-    <h2 class="ux-greeting">Please place all components below this heading, thanks!</h2>
-    <button ccButton [definition]="defaultButtonObj">
-      <span>Default</span>
-    </button>
-    <router-outlet></router-outlet>
+    <div class="main__body">
+        <aside class="fill-white">
+            <app-primary-sidebar></app-primary-sidebar>
+        </aside>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <uxd-pane>
+                        <div class="row">
+                            <h2 class="uxd-pane__heading col-sm-10 col-sm-offset-1">Please place all components below this heading, thanks!</h2>
+                            <div class="uxd-pane__content col-sm-10 col-sm-offset-1">
+                                <div class="row">
+                                    <router-outlet></router-outlet>
+                                </div>
+                            </div>
+                        </div>
+                    </uxd-pane>
+                </div>
+            </div>
+        </div>
+    </div>
   </div>
-</div>
