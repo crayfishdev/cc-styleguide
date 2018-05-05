@@ -17,10 +17,10 @@
       "test": "test.ts",
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
-      "prefix": "app",
+      "prefix": "uxd",
       "styles": [
-        "styles/main.scss",
-        "../node_modules/cc-component-library/src/styles/main.scss"  
+        "../node_modules/cc-component-library/src/styles/main.scss",
+        { "input": "styles/main.scss", "bundleName" : "styles" }
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
