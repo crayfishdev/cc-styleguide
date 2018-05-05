@@ -92,6 +92,16 @@ Metalsmith(__dirname+'/../../')
             name: 'Expand Collapse',
             permalink: '',
             pattern: 'components/expand-collapse/*',
+          },
+          {
+            name: 'Radio Buttons',
+            permalink: '',
+            pattern: 'components/radio-button/*',
+          },
+          {
+            name: 'Buttons',
+            permalink: '',
+            pattern: 'components/buttons/*',
           }
         ]
       },
