@@ -1,12 +1,16 @@
+import { SharedModule } from './../../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PrimarySidebarComponent } from './primary-sidebar/primary-sidebar.component';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    SharedModule,
   ],
-  declarations: [PrimarySidebarComponent],
+  declarations: [
+    PrimarySidebarComponent
+  ],
   exports: [
     PrimarySidebarComponent,
   ]
