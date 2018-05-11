@@ -1,0 +1,18 @@
+.pane {
+    background: $white;
+    @include padding(24px null);
+    @include margin(1rem null);
+
+    @each $heading in $font-heading-list {
+        #{$heading}.uxd-pane__heading {
+          @include margin(1.5rem null);
+          padding-bottom: 24px;
+        }
+    }
+
+    .uxd-pane__content {
+        @include margin(1.5rem null);
+        padding-bottom: 24px;
+    }
+    
+}

@@ -5,9 +5,12 @@
 /dist-server
 /tmp
 /out-tsc
+/content/build
 
 # dependencies
 /node_modules
+content/node_modules
+content/server/node_modules
 
 # IDEs and editors
 /.idea

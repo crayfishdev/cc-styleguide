@@ -5,7 +5,7 @@
   },
   "apps": [
     {
-      "root": "src",
+      "root": "angular",
       "outDir": "dist",
       "assets": [
         "assets",
@@ -17,11 +17,11 @@
       "test": "test.ts",
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
-      "prefix": "app",
+      "prefix": "uxd",
       "styles": [
-        "styles/main.scss"
+        "../node_modules/cc-component-library/src/styles/main.scss",
+        { "input": "styles/main.scss", "bundleName" : "styles" }
       ],
-      "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
@@ -54,6 +54,9 @@
     }
   },
   "defaults": {
-    "styleExt": "scss"
+    "styleExt": "scss",
+    "serve": {
+      "proxyConfig": "proxy.config.json"
+    }
   }
 }
