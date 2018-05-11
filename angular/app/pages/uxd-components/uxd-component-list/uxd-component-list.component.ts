@@ -8,16 +8,14 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UxdComponentListComponent implements OnInit {
 
-  categoryName: string;
+  private _categoryName: string;
+  get categoryName(): string { return this._categoryName; }
   constructor(private _route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.categoryName = this.getCategoryName();
-  }
-
-  getCategoryName(): string {
-    const name = this._route.snapshot.paramMap.get('categoryName');
-    return name;
+    this._route.params.subscribe(params => {
+      this._categoryName = this._route.snapshot.paramMap.get('categoryName');
+    });
   }
 
 }

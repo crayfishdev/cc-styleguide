@@ -1,25 +1,36 @@
 <app-header>
 </app-header>
 <div class="main">
-    <div class="main__body">
-        <aside class="fill-white">
-            <app-primary-sidebar></app-primary-sidebar>
-        </aside>
-        <div class="container">
+  <div class="main__body">
+    <aside class="fill-white">
+      <app-primary-sidebar>
+        <nav class="nav__nav-group" *ngFor="let category of categories" #accordianItem="uxdAccordianItem" uxdAccordianItem>
+          <button class="nav-group__button" >
+            {{ category.label }}
+            <span class="glyphicon glyphicon-chevron-down font-tiny"></span>
+          </button>
+          <ul class="nav-group__list" [ngClass]="{'expanded': accordianItem.expanded, 'collapsed': !accordianItem.expanded}">
+            <li class="nav-group__item" *ngFor="let subcategory of category.subcollections">
+              <a [routerLink]="[category.label + '/' + subcategory.label | lowercase]">{{subcategory.label}}</a>
+            </li>
+          </ul>
+        </nav>
+      </app-primary-sidebar>
+    </aside>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <uxd-pane>
             <div class="row">
-                <div class="col-sm-12">
-                    <uxd-pane>
-                        <div class="row">
-                            <h2 class="uxd-pane__heading col-sm-10 col-sm-offset-1">Please place all components below this heading, thanks!</h2>
-                            <div class="uxd-pane__content col-sm-10 col-sm-offset-1">
-                                <div class="row">
-                                    <router-outlet></router-outlet>
-                                </div>
-                            </div>
-                        </div>
-                    </uxd-pane>
+              <div class="uxd-pane__content col-sm-10 col-sm-offset-1">
+                <div class="row">
+                  <router-outlet></router-outlet>
                 </div>
+              </div>
             </div>
+          </uxd-pane>
         </div>
+      </div>
     </div>
   </div>
+</div>

@@ -105,7 +105,21 @@ Metalsmith(__dirname+'/../../')
       {
         title: 'Styles',
         permalink: '',
-        pattern: 'styles/**',
+        subcollections: [
+          {
+            title: 'Colors',
+            pattern: 'styles/colors/**'
+          },
+          {
+            title: 'Typography',
+            pattern: 'styles/typography/**'
+          },
+          {
+            title: 'Layout',
+            pattern: 'styles/layout/**'
+          }
+    
+        ]
       },
       {
         title: 'Resources',

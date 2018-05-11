@@ -9,8 +9,13 @@ import { CategoryFactory, Collection } from './../models/category';
 @Injectable()
 export class CategoriesService {
   private _URL: string;
-  private _categories: Collection[] = [];
+  private _categories: Observable<Collection[]>;
+  
 
+  public get categories(): Observable<Collection[]> {
+    return this._categories;
+  }
+  
   constructor(private _http: HttpClient, private _config: ApiConfigService) { 
     this._URL = _config.API_CATEGORIES_URL;
   }
@@ -20,11 +25,14 @@ export class CategoriesService {
   }
 
   public getAllCategories(): Observable<Collection[]> {
-     return this._getAllCollections().map(collections => {
+     let category: Collection;
+     this._categories =  this._getAllCollections().map(collections => {
         return collections.map((collection: Collection) => {
-           return CategoryFactory.create(collection);
+          category = CategoryFactory.create(collection);
+          return category;
         });
     });
+    return this._categories;
   }
 
 }
