@@ -1,47 +1,53 @@
-var File = require('./file.model');
+var Post = require('./post.model');
+var Node = require('../utilities/tree').Node;
 
 class Collection {
     constructor(collection) {
         if (collection) {
             this._label = collection.label || '';
-            this._files = collection.files || [];
-            this._subcollections = collection.subcollections || [];
+            this._posts = collection.posts || new Map();
+            this._permalink = collection.permalink || encodeURI(this.label);
+            this._subcollections = collection.subcollections || new Map();
         }
     }
 
     get label() { return this._label; }
     set label(value) { this._label = value; }
-
-    get files() { return this._files; }
-    get subcollections() { return this._subcollections; }
-
+    get permalink() { return this._permalink; }
+    get subcollections() { return Array.from(this._subcollections.values());}
+    get posts() { return Array.from(this._posts); }
     
-    pushFile(file) {
-        if (!this._files || !file){
+    addPost(post) {
+        if (!this._posts || !post || !post.id){
             return;
         }
-        var fileObj = new File(file);
-        // var existingFile = this._files.find(el => {
-        //     return el === fileObj;
-        // });
-        // if(existingFile) {
-        //     return;
-        // }
-        this.files.push(fileObj);
+        var exisitingFile = this.updatePost(post);
+        this._posts.set(exisitingFile.id, exisitingFile);
     } 
 
-    pushSubcollection(collection) {
-        if (!this._subcollections || !collection){
+    updatePost(post){
+        var exisitingPost = this._posts.get(post.id);
+        if(exisitingPost && exisitingPost.id){
+            exisitingFile = Object.assign(exisitingFile, post);
+        }else {
+            exisitingPost = post;
+        }
+        return exisitingPost;
+    }
+
+    static addSubcollection(root, subcollection){
+        if (!root._subcollections || !subcollection || !subcollection.label){
             return;
         }
-        this._subcollections.push(collection);
+        root._subcollections.set(subcollection.permalink, subcollection);
     }
 
     toJSON() {
         return {
             label: this.label,
-            files: this.files,
-            subcollections: this.subcollections,
+            permalink: this.permalink,
+            posts: this.posts,
+            subcollections: this.subcollections
         };
     }
 

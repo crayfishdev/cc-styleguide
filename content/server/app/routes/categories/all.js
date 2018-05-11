@@ -5,7 +5,7 @@ const CollectionProvider = require('../../services/collection.service');
 
 
 
-module.exports = (req, res) => {
+module.exports = (req, res, next) => {
     let reqCategory = req.params.categories;
     let categoriesCollection;
     CollectionProvider.fetchAllCollections(collections =>  {
@@ -13,7 +13,7 @@ module.exports = (req, res) => {
         categoriesCollection = collections;
        }
     });
-    
+
     if(categoriesCollection) {
         res.status(200).send(categoriesCollection);
     }else{

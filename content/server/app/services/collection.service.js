@@ -24,7 +24,20 @@ class CollectionProvider {
     fetchCollectionByLabel(label, callback) {
         var foundCollections = this._collections.filter(function(collection) {return collection.label === label});
         if (foundCollections.length == 0) {
-            callback('User not found', null);
+            callback('Collection not found', null);
+        } else {
+            callback(null, foundCollections);
+        }
+    }
+
+    fetchSubcollectionByLabel(collection, label, callback) {
+        var foundCollections = collection.subcollections.filter((subcollection) => {
+            console.log(subcollection)
+            return subcollection.label === label;
+        });
+        
+        if (foundCollections.length == 0) {
+            callback('Collection not found', null);
         } else {
             callback(null, foundCollections);
         }

@@ -1,14 +1,16 @@
-class File {
-    constructor(file) {
-        if(file.filePath){
-            this._layout = file.layout || '';
-            this._filePath = file.filePath || '';
-            this._title = file.title || this._filePath;
-            this._collections = file.collections || [];
+_nextPostID = 0;
+class Post {
+    constructor(post) {
+        if(post.filePath){
+            this._id = post.id || _nextPostID++;
+            this._layout = post.layout || '';
+            this._filePath = post.filePath || '';
+            this._title = post.title || this._filePath;
+            this._collections = post.collections || [];
         }
-        return null;
     }
 
+    get id() { return this._id; }
     get title() { return this._title; }
     get layout() { return this._layout; }
     get filePath() { return this._filePath; }
@@ -18,6 +20,7 @@ class File {
 
     toJSON() {
         return {
+            id: this._id,
             title: this._title,
             layout: this._layout,
             filePath: this._filePath,
@@ -31,4 +34,4 @@ class File {
     }
 }
 
-module.exports = File;
+module.exports = Post;

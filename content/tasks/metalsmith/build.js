@@ -80,44 +80,41 @@ Metalsmith(__dirname+'/../../')
     }))
     .use(taxonomy([
       {
-        name: 'Home',
+        title: 'Home',
         pattern: '*.html'
       },
       {
-        name: 'Components',
+        title: 'Components',
         permalink: '',
-        pattern: 'components/*',
-        subcategories: [
+        pattern: '',
+        subcollections: [
           {
-            name: 'Expand Collapse',
-            permalink: '',
-            pattern: 'components/expand-collapse/*',
+            title: 'Buttons',
+            pattern: 'components/buttons/**',
           },
           {
-            name: 'Radio Buttons',
-            permalink: '',
-            pattern: 'components/radio-button/*',
+            title: 'Expand-Collapse',
+            pattern: 'components/expand-collapse/**',
           },
           {
-            name: 'Buttons',
-            permalink: '',
-            pattern: 'components/buttons/*',
-          }
+            title: 'Form Elements',
+            pattern: 'components/form-elements/**',
+          },
         ]
       },
       {
-        name: 'Styles',
+        title: 'Styles',
         permalink: '',
         pattern: 'styles/**',
       },
       {
-        name: 'Resources',
+        title: 'Resources',
         permalink: '',
         pattern: 'resources/**',
-        subcategories: []
+        subcollections: []
       },
       {
-        name: 'All',
+        title: 'All',
         pattern: '**/**'
       }
     ]))

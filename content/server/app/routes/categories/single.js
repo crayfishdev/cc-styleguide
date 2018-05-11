@@ -1,17 +1,23 @@
 const CollectionProvider = require('../../services/collection.service');
 
-module.exports = (req, res) => {
-    let reqCategory = req.params.category;
-    let categoryCollection;
+module.exports = (req, res, next) => {
+    let reqCollection = req.params.category;
+    let reqSubcollection = req.params.subcategory;
+    var collection, categoryCollection, subcategoryCollection;
+  
     CollectionProvider.fetchAllCollections(collections =>  {
         categoryCollection =  collections.find(collection => {
-            return collection.label.toLowerCase() === reqCategory.toLowerCase();
+            return collection.permalink.toLowerCase() === reqCollection.toLowerCase();
         });
     });
-    
-    if(categoryCollection) {
-        res.status(200).send(categoryCollection);
-    } else{
-        res.status(404).send(`Sorry, ${reqCategory} is not a valid category`);
+  
+    collection = categoryCollection;
+    if(reqSubcollection) {
+        subcategoryCollection = categoryCollection.subcollections.filter(subcollection => {
+            return subcollection.permalink.toLowerCase() == reqSubcollection.toLowerCase();
+        });
+        collection = subcategoryCollection;
     }
+    req.collection = collection;
+    next();
 };

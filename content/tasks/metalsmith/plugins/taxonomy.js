@@ -1,116 +1,121 @@
 var read = require('fs').read;
 var unique = require('lodash/uniq');
 var minimatch = require('minimatch');
+var entries = require('object.entries');
+
 var normalize = require('../utilities/options');
 var Collection = require('../models/collection.model');
-var File = require('../models/file.model');
+var Post = require('../models/post.model');
+var Taxonomy = require('../models/taxonomy.model');
+var Matcher = require('../models/matcher.model');
+var Node = require('../utilities/tree').Node;
+var Tree = require('../utilities/tree').Tree;
 
 
 module.exports = plugin;
 
 function plugin(options) {
-    var opts = normalize(options);
-    var collections = opts;
-    var props = _getCollectionProps(collections);
-    var matchers = [];
-    var names = props.name;
-
-    /* Iterate over the list of keys provided */
-    forEachCollection(collections, collection => {
-        var matcher = {
-            key: collection.name,
-        };
-        var subcollections = [];
-
-        // The collection is flat. Look for the pattern property
-        if(!collection.pattern || !collection.name) {
-            return;
-        }
-
-        if(_numOfSubcategories(collection) > 0) {
-            // The collection has subcategories that need to be traversed.
-            var subcategories = collection.subcategories;
-
-            matcher.subcategories = subcategories.map(subcategory => {
-                return ({
-                    key: subcategory.name,
-                    match: patternMatcher(subcategory),
-                });
-            });
-        }
-
-        matcher.match = patternMatcher(collection);
-        matchers.push(matcher);
+    let taxonomies = options;
+    if(!Array.isArray(taxonomies)) {
+        return;
+        //TODO: Throw error
+    }
+    let matcherTree = new Tree(null);
+    let matcher, node, childNode, root;
+    taxonomies.forEach(taxonomy => {
+        createTaxonomyTree(taxonomy, matcherTree.root);
     });
 
     return function (files, metalsmith, done) {
         var metadata = metalsmith.metadata();
-        var fileJSON = {};
-        var collections = new Map();
-        var collection;
-        var collectionFile;
-        // Find the files to associate with each collection
-        Object.keys(files).forEach( path => {
-            var file = files[path];
-            var matchName; 
+        var matcher, collection, parentNode,parentKey, parentCollection;
+        var flatMap = new Map();
+        var children = [];
+        var collections = new Tree(new Collection({label: 'Collections'}));
+        var posts = new Map();
+        var file, post, idx;
 
-            collectionFile = new File({
+        // matcherTree.traverseDF(node => console.log(node));
+        parentCollection = collections.root;
+        Object.keys(files).forEach(path => {
+            file = files[path];
+            post = new Post({
                 title: file.title,
                 layout: file.layout,
                 filePath: path,
                 collections: file.collections
             });
 
-            // For each potential collection match...
-            matchers.forEach(matcher => {
-                matchName = matcher.key;
-                collection = getCollection(collections, matchName) ;
-                                
+            matcherTree.traverseBF(node => {
+                if (!node || !node.data) return;
+                matcher = node.data;
+              
                 if(typeof matcher.match == 'function') {
-                    matcher.match(path, file).forEach(_ => {
-                        collectionFile.collections = file.collections;
-                        collection.pushFile(collectionFile);
-                        return;
+                    matcher.match(path, file).forEach(match => {
+                        post.collections = file.collections;
+                        matcher.addMatch(post);
+                        // collection.addPost(post);
                     });
                 }
-                
-                /* Subcategories nested under a collection. */
-                if(matcher.subcategories && Object.keys(matcher.subcategories).length){
-                    // console.log(matcher.subcategories);
-                    var subcollection;
-                    matcher.subcategories.forEach(submatcher => {
-                        submatcher.match(path, file).forEach(key => {
-                            subcollection = collection.subcollections.find(collection => collection.label == key) ||  new Collection({label: key});
-                            subcollection.pushFile(collectionFile);
-                        });
-                    });
-                    collection.pushSubcollection(subcollection);
-                }
-
-                collections.set(collection.label, collection);
             });
+        
+            posts.set(post.id, post);
+            post = null;
+            file = null;
         });
 
+        var currentKey, currentCollection;
         metadata.collections = [];
-        collections.forEach((value, key) => {
-            metadata.collections.push(value);
-            return metadata.collections[key];
+
+        matcherTree.root.children.forEach((node) => {
+            collections = convertTreeToCollection(node, new Collection({label: 'Collections'}));
+            metadata.collections.push(collections);
+            return metadata.collections;
         });
-        // return metadata.collections;
         done();
     };
-
-
-    function getCollection(collections, collectionName) {
-        var collection = collections.get(collectionName);
-        if(!collection){
-            // If no collection exists with that label, create a new collection
-            collection = new Collection({ label: collectionName });
-        }
-        return collection;
-    }
 }
 
+function convertTreeToCollection(tree, root) {
+    var matcher = tree.data;
+
+    var currentCollection = new Collection({
+        label: matcher.key,
+        posts: matcher.matchedPosts,
+    }); 
+    if(tree.hasChildren) {
+        tree.children.forEach(child => {
+            return Collection.addSubcollection(currentCollection, convertTreeToCollection(child, currentCollection));
+        });
+    }
+    Collection.addSubcollection(root, currentCollection);
+    return currentCollection;
+}
+
+
+function createTaxonomyTree(taxonomy, root) {
+    taxonomy = new Taxonomy(taxonomy);
+    var matcher = new Matcher({
+        key: taxonomy.title,
+        match: patternMatcher(taxonomy)
+    });
+    var currentNode = new Node(matcher); 
+    if(taxonomy.hasChildren) {
+        taxonomy.children.forEach(child => {
+            return Node.addChild(currentNode, createTaxonomyTree(child, currentNode));
+        });
+    }
+    Node.addChild(root, currentNode);
+    return currentNode;
+}
+
+/**
+ * Generate a dictionary of functions responsible for matching
+ * file paths to a given set of 'categories'.
+ * 
+ * @param {Object} category
+ * @returns {Function} Matching function
+ */
 /**
  * Generate a dictionary of functions responsible for matching
  * file paths to a given set of 'categories'.
@@ -126,7 +131,7 @@ function patternMatcher(category) {
     }
 
     matchers.set(
-        category.name, {
+        category.title, {
             match: function(file) {
                 return minimatch(file, category.pattern);
             }
@@ -162,51 +167,4 @@ function patternMatcher(category) {
 
 function filePathMatches(matcher, path) {
     return matcher.match(path);
-}
-
-function _getChildCollectionProps(options) {
-    var props;
-    var result = options.reduce((acc, option) => {
-        props = Object.keys(option).forEach(prop => {
-            acc[prop] = (acc[prop] || []).concat(option[prop]);
-        });
-        return acc;
-    }, {});
-    return result;
-}
-
-function _getCollectionProps(options) {
-
-    
-    return _getChildCollectionProps(options);
-}
-
-function _numOfSubcategories(collection) {
-    if(collection.subcategories) {
-        return collection.subcategories.length;
-    }
-    return 0;
-}
-
-function _getSubcategories(collection) {
-    if(_numOfSubcategories) {
-        return collection.subcategories;
-    }
-    return null;
-}
-
-function forEachCollection(collection, func) {
-    if (!Array.isArray(collection)) { return; } // TODO: throw error
-    if(typeof func !== 'function') { return; } // TODO: throw an error
-    collection.forEach(sub => {
-        return func(sub);
-    });
-}
-
-function setDefaultOptions(opts) {
-    opts = opts || {};
-    opts.componentsPath = opts.componentsPath || 'components.json';
-    opts.stylesPath = opts.stylesPath || 'components.json';
-    opts.resourcesPath = opts.resourcesPath || 'components.json';
-    return opts;
 }
